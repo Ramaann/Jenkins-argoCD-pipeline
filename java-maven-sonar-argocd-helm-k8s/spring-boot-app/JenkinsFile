@@ -63,7 +63,8 @@ pipeline {
                     # if [ -n "$untracked_files" ]; then
                      #   git add -A
                      # fi
-                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    git diff --quiet --exit-code || git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    
                     git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                 '''
             }
